@@ -1,7 +1,10 @@
+// routes/users.js
+
 const express = require('express');
 const router = express.Router();
 const { Users } = require('../models');
 
+// GET /users
 router.get("/", async (req, res) => {
   try {
     const listOfUsers = await Users.findAll();
@@ -11,9 +14,10 @@ router.get("/", async (req, res) => {
   }
 });
 
+// POST /users
 router.post("/", async (req, res) => {
   try {
-    const { username, password, email } = req.body; // Adjust fields as necessary
+    const { username, password, email } = req.body;
     const newUser = await Users.create({ username, password, email });
     res.status(201).json(newUser);
   } catch (error) {
