@@ -1,20 +1,18 @@
-// routes/users.js
-
 const express = require('express');
 const router = express.Router();
-const { Users } = require('../models');
+const { Users } = require('../models');;
+router.use(express.json());
 
-// GET /users
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const listOfUsers = await Users.findAll();
-    res.json(listOfUsers);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const users = await Users.findAll();
+    res.json(users);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
-// POST /users
 router.post("/", async (req, res) => {
   try {
     const { username, password, email } = req.body;
